@@ -1,0 +1,18 @@
+for the first time you need to run the following commands
+
+az provider register --namespace Microsoft.OperationsManagement
+az provider register --namespace Microsoft.OperationalInsights
+
+Create a resource group
+az group create --name myDemoResourceGroup --location northeurope
+
+create a aks cluster
+az aks create --resource-group myDemoResourceGroup --name myDemoAKSCluster --node-count 1  --node-vm-size Standard_D2a_v4 --enable-addons monitoring --generate-ssh
+
+
+az account set --subscription 7702f071-bd2f-4581-bdd6-d7ae63a1462e
+az aks get-credentials --resource-group myDemoResourceGroup --name myDemoAKSCluster
+
+
+kubectl create deployment --image=chinnareddaiah/devops-weekend-session:6 java-app-deployment
+kubectl expose deployment java-app-deployment --port=33333 --name=java-app-service --type LoadBalancer
